@@ -12,9 +12,9 @@ class Calculations:
         ecg_datastream = database.getDatastreamOfType("ECG")
         file = pd.read_csv(ecg_datastream["rawdata"])
         ecg_signal = file["ECG"]
-        signals, info = nk.ecg_process(ecg_signal,ui.samplingrate)
+        signals, info = nk.ecg_process(ecg_signal,ui.samplingrate[ecg_datastream["id"]-1])
         time = file["time"]
-        dataframe = nk.ecg_analyze(signals, sampling_rate = ui.samplingrate)
+        dataframe = nk.ecg_analyze(signals, sampling_rate = ui.samplingrate[ecg_datastream["id"]-1])
 
         # set up table
         ui.tableCalculations.setColumnCount(2)
@@ -44,7 +44,7 @@ class Calculations:
             toIndex = pd.Index(time).get_loc(toValue, method="nearest")
 
             epochs_end = math.ceil((toValue - fromValue) / 1000)
-            epochs = nk.epochs_create(signals, events=[fromIndex], sampling_rate=ui.samplingrate, epochs_start=0, epochs_end=epochs_end)
+            epochs = nk.epochs_create(signals, events=[fromIndex], sampling_rate=ui.samplingrate[ecg_datastream["id"]-1], epochs_start=0, epochs_end=epochs_end)
 
             # Calculations for range
             ui.tableCalculations.setRowCount(3)
@@ -61,7 +61,7 @@ class Calculations:
                 ui.tableCalculations.setItem(5, 0, QtWidgets.QTableWidgetItem("Heart Rate Minimum in bpm"))
                 ui.tableCalculations.setItem(5, 1,QtWidgets.QTableWidgetItem(str(dataframeFromTo.loc["1"][4] + baseline)))
             else:
-                dataframeFromTo = nk.ecg_intervalrelated(epochs, sampling_rate=ui.samplingrate)
+                dataframeFromTo = nk.ecg_intervalrelated(epochs, sampling_rate=ui.samplingrate[ecg_datastream["id"]-1])
                 ui.tableCalculations.setRowCount(5)
                 ui.tableCalculations.setItem(3, 0, QtWidgets.QTableWidgetItem("Heart Rate Mean in bpm"))
                 ui.tableCalculations.setItem(3, 1, QtWidgets.QTableWidgetItem(str(dataframeFromTo.loc["1"][1])))

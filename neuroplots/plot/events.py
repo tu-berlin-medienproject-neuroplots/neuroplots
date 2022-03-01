@@ -97,7 +97,7 @@ class Events:
 
         #todo noah implement belas getsamplingrate
 
-        signals, info = nk.ecg_process(ecg_signal,ui.samplingrate)
+        signals, info = nk.ecg_process(ecg_signal,ui.samplingrate[ecg_datastream["id"]-1])
 
         def remove_on_click(self):
             ui.graph.removeItem(self)
@@ -130,7 +130,7 @@ class Events:
 
         #todo noah implement belas getsamplingrate
 
-        signals, info = nk.eda_process(eda_signal,ui.samplingrate)
+        signals, info = nk.eda_process(eda_signal,ui.samplingrate[eda_datastream["id"]-1])
 
         def remove_on_click(self):
             ui.graph.removeItem(self)
@@ -331,7 +331,7 @@ class Events:
         time = file["time"]
         eda_signal = file["EDA"]
         #eda_signal = select.calculationsArray[database.getDatastreamId(eda_datastream["name"])-1]
-        data = nk.eda_phasic(nk.standardize(eda_signal), sampling_rate = ui.samplingrate)
+        data = nk.eda_phasic(nk.standardize(eda_signal), sampling_rate = ui.samplingrate[eda_datastream["id"]-1])
         itemTonic = pg.PlotDataItem(time,data["EDA_Tonic"], pen = pg.mkPen(255,165,0), name = "EDA_Tonic")
         itemPhasic = pg.PlotDataItem(time,data["EDA_Phasic"], pen = pg.mkPen(135,206,235), name = "EDA_Phasic")
         self.phases.append(itemTonic)

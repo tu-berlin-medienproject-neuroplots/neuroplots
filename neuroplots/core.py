@@ -57,7 +57,7 @@ def openproject(ui: ui_module.Ui_MainWindow, MainWindow: QtWidgets.QMainWindow, 
         if(filename != ""):
 
             #open project database
-            print("Opening project " + filename)
+            #print("Opening project " + filename)
             database.openDatabase(filename)
 
             #write curent filename in Database object of opened program
@@ -91,7 +91,8 @@ def saveproject(MainWindow: QtWidgets.QMainWindow, database: database_module.Dat
 
     if(database.saved):
 
-        print("Database already saved!")
+        #print("Database already saved!")
+        return
 
     else:
 
@@ -101,12 +102,12 @@ def saveproject(MainWindow: QtWidgets.QMainWindow, database: database_module.Dat
 
         else:
 
-            print("Saving project in " + database.filename)
+            #print("Saving project in " + database.filename)
             database.saveDatabase(database.filename)
 
 def saveprojectas(MainWindow: QtWidgets.QMainWindow, ui: ui_module.Ui_MainWindow, database: database_module.Database, marker: marker_module.Marker, events: event_module.Events):
 
-    print("function: saveprojectas")
+    #print("function: saveprojectas")
 
     #get url and name for new project save
     filename = QtWidgets.QFileDialog.getSaveFileName(filter="db(*.db)")[0]
@@ -133,7 +134,7 @@ def saveprojectas(MainWindow: QtWidgets.QMainWindow, ui: ui_module.Ui_MainWindow
 
 def importdata(ui: ui_module.Ui_MainWindow, MainWindow: QtWidgets.QMainWindow,  database: database_module.Database):
 
-    print("function: importdata")
+    #print("function: importdata")
 
     #get url of data
     filename = QtWidgets.QFileDialog.getOpenFileUrl(MainWindow, "Import Data", filter="csv(*.csv)")[0]
@@ -143,4 +144,7 @@ def importdata(ui: ui_module.Ui_MainWindow, MainWindow: QtWidgets.QMainWindow,  
         datastream_module.importdata(filename, database)
         datastream_module.updateDatastreamUi(ui, database)    
 
-        plot_module.plotData(ui, database)
+        plot_module.setSamplingrate(ui,database)
+
+
+        #plot_module.plotData(ui, database)

@@ -38,7 +38,7 @@ ui.actionOpenProject.triggered.connect(lambda: core.openproject(ui, MainWindow, 
 ui.actionSaveProject.triggered.connect(lambda: core.saveproject(MainWindow, database))
 ui.actionSaveProjectAs.triggered.connect(lambda: core.saveprojectas(MainWindow, ui, database, marker, events))
 ui.actionImportData.triggered.connect(lambda: core.importdata(ui, MainWindow, database))
-ui.actionExtraSetSamplingrate.triggered.connect(lambda: plot_module.setSamplingrate(ui))
+ui.actionExtraSetSamplingrate.triggered.connect(lambda: plot_module.setSamplingrate(ui,database))
 ui.checkBoxSelectData.clicked.connect(lambda: select.selectData(ui))
 select.region.sigRegionChanged.connect(lambda: select.updateSelectionEditBox(ui))
 ui.fromEditBox.returnPressed.connect(lambda: select.updateRegion(ui))

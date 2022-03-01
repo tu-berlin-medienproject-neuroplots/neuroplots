@@ -54,7 +54,7 @@ class Marker:
     def loadMarkerFromDatabase(self, ui: ui_module.Ui_MainWindow, database : database_module.Database):
 
         markers = database.getAllMarkerOf(1)
-        print(markers)
+        #print(markers)
         for marker in markers:
 
             markerTime = marker["time"]

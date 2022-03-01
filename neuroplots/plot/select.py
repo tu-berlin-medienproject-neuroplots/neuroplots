@@ -136,6 +136,7 @@ class Select:
         name = ui.hideDataDropdown.currentText() + 'del'
         grey = pg.PlotDataItem(xData, yData, pen = pg.mkPen(color=(220,220,220)), name=name)
         ui.graph.addItem(grey)
+        #ui.legend.removeItem(grey)
         Plot.plots.append(grey)
         if addSelection:
             self.saveSelection(ui, database, 2)
@@ -162,7 +163,7 @@ class Select:
             if plot.name() == name:
                 ui.graph.removeItem(plot)
                 Plot.plots.remove(plot)
-                print(plot.name() + " has been removed successfully")
+                #print(plot.name() + " has been removed successfully")
         for datastream in database.getAllDatastreamsOf(1):
             file = pd.read_csv(datastream["rawdata"])
             xData = file["time"].to_numpy()
@@ -179,7 +180,7 @@ class Select:
         for datastream in datastreams:
             file = pd.read_csv(datastream["rawdata"])
             self.calculationsArray.insert(datastream["id"]-1,datastream["datakey"],file[datastream["datakey"]])
-        print(self.calculationsArray)
+        #print(self.calculationsArray)
     #hides data for datastream
     j = 0
     def hideData(self, id, ui: ui_module.Ui_MainWindow, database : database_module.Database):

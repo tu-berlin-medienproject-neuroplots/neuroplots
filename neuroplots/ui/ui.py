@@ -9,12 +9,15 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QTableWidgetItem, QPushButton
+from matplotlib.pyplot import legend
 from pyqtgraph.widgets.PlotWidget import PlotWidget
 import sys
+import pyqtgraph as pg
 
 
 class Ui_MainWindow(object):
-    samplingrate = 0
+    samplingrate = []
+
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1384, 847)
@@ -34,8 +37,10 @@ class Ui_MainWindow(object):
 
         self.graph = PlotWidget(self.fullPage)
         self.graph.setObjectName("graph")
-
         self.upperHalf.addWidget(self.graph)
+
+        legend = self.graph.getPlotItem().addLegend(pen = pg.mkPen(color=(204,204,204)),brush = pg.mkBrush(color=(255,255,255)),labelTextColor=(0,0,0) )
+
         # functionOverview: Box with all the functionalities
         self.functionOverview = QtWidgets.QVBoxLayout()
         self.functionOverview.setObjectName("functionOverview")
